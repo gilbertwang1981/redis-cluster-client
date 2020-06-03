@@ -1,0 +1,10 @@
+jedis-cluster:
+   nodes: 127.0.0.1:7000;127.0.0.1:7001:127.0.0.1:7002
+   connect-timeout: 500
+   so-timeout: 500
+   max-attempts: 10
+   pool:
+      max-idle: 300
+      min-idle: 10
+      max-total: 600
+      max-wait: 1000 
