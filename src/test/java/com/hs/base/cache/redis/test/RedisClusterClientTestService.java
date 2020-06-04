@@ -8,14 +8,14 @@ import com.hs.base.cache.redis.RedisClusterCacheable;
 
 @Component
 public class RedisClusterClientTestService {
-	@RedisClusterCacheable(group = "test-group" , opt = "get" , keyName = "key")
+	@RedisClusterCacheable(group = "test-group" , opt = "get" , keyName = "key" , expire = 10000)
 	public String get(String key) {
 		return UUID.randomUUID().toString();
 	}
 	
-	@RedisClusterCacheable(group = "test-group" , opt = "get" , keyName = "key" , valueName = "value" , expire = 10)
-	public Boolean set(String key , String value) {
-		return true;
+	@RedisClusterCacheable(group = "test-group" , opt = "set" , keyName = "key" , valueName = "value" , expire = 10000)
+	public String set(String key , String value) {
+		return UUID.randomUUID().toString();
 	}
 	
 	@RedisClusterCacheable(group = "test-group" , opt = "del" , keyName = "key")

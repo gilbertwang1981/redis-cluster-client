@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +19,8 @@ import redis.clients.util.JedisClusterCRC16;
 
 @Component
 public class RedisClusterRepository {
+	private static Logger logger = LoggerFactory.getLogger(RedisClusterRepository.class);
+	
 	@Autowired
 	private JedisCluster jedisCluster;
 	
@@ -39,6 +43,8 @@ public class RedisClusterRepository {
 			
 			return Boolean.TRUE;
 		} catch (Exception e) {
+			logger.error("set失败, {} {} {} {}" , e.getMessage() , key , value , exp);
+			
 			return Boolean.FALSE;
 		}
 	}
@@ -53,6 +59,8 @@ public class RedisClusterRepository {
 			
 			return Boolean.TRUE;
 		} catch (Exception e) {
+			logger.error("incr失败, {} {} {}" , e.getMessage() , key , exp);
+			
 			return Boolean.FALSE;
 		}
 	}
@@ -67,6 +75,8 @@ public class RedisClusterRepository {
 			
 			return Boolean.TRUE;
 		} catch (Exception e) {
+			logger.error("decr失败, {} {} {}" , e.getMessage() , key , exp);
+			
 			return Boolean.FALSE;
 		}
 	}
@@ -75,6 +85,8 @@ public class RedisClusterRepository {
 		try {
 			return jedisCluster.get(key);
 		} catch (Exception e) {
+			logger.error("get失败, {} {}" , e.getMessage() , key );
+			
 			return null;
 		}
 	}

@@ -28,8 +28,11 @@ public class RedisClusterTestCaller {
 	}
 	
 	private void call() {
+		logger.info(redisClusterClientTestService.del("t")? "删除缓存成功" : "删除设置失败");
+		
+		redisClusterClientTestService.set("t", "32323");
+		
 		logger.info(redisClusterClientTestService.get("t"));
-		logger.info(redisClusterClientTestService.set("t", "32323")? "设置缓存成功" : "缓存设置失败");
 		logger.info(redisClusterClientTestService.del("t")? "删除缓存成功" : "删除设置失败");
 		logger.info(redisClusterClientTestService.get("t"));
 	}
