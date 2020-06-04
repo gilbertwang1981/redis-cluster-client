@@ -1,5 +1,7 @@
 package com.hs.base.cache.redis.test;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -35,5 +37,19 @@ public class RedisClusterTestCaller {
 		logger.info(redisClusterClientTestService.get("t"));
 		logger.info(redisClusterClientTestService.del("t")? "删除缓存成功" : "删除设置失败");
 		logger.info(redisClusterClientTestService.get("t"));
+		
+		for (int i = 0;i < 20 ; i ++) {
+			redisClusterClientTestService.set("t-" + i , "t" + i);
+		}
+		
+		Map<String , Object> kvs = new HashMap<>();
+		for (int i = 0;i < 20 ; i ++) {
+			kvs.put("t-" + i , "");
+		}
+		
+		Map<String , Object> ret = redisClusterClientTestService.mget(kvs);
+		for (Map.Entry<String, Object> entry : ret.entrySet()) {
+			logger.info("mget返回值：{}/{}" , entry.getKey() , entry.getValue());
+		}
 	}
 }
